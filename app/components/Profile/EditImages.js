@@ -6,7 +6,7 @@
  * Time: 16:10
  */
 import React from 'react'
-import ImageUpload from '../ImageUpload'
+import ImageUpload from '../FileUpload'
 var Dropzone = require('react-dropzone');
 import {Button} from 'rebass'
 
