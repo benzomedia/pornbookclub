@@ -9,8 +9,6 @@ import * as types from '../constants/actionTypes'
 
 const defaultState = {
     user: {},
-    email: null,
-    userEditMode: false,
     isLoading: false,
     submitted: false,
 }
@@ -27,38 +25,6 @@ function auth(state = defaultState, action) {
         case types.LOGIN_FAILURE:
             return state
 
-        case types.RECEIVE_USER:
-            return {
-                ...state,
-                user: action.user
-            }
-
-        case types.RECEIVE_USER_FAILURE:
-            return state
-
-
-        case types.REQUEST_TOGGLE_ONBOARDING:
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    onBoarding:!state.user.onBoarding
-                }
-            }
-
-        case types.TOGGLE_ONBOARDING_SUCCESS:
-            return state
-
-
-        case types.TOGGLE_ONBOARDING_FAILURE:
-            return state
-
-
-        case types.TOGGLE_USER_EDIT_MODE:
-            return {
-                ...state,
-                userEditMode: !state.userEditMode
-            }
 
         case types.REQUEST_RESET_PASSWORD_REQUEST:
             return {
@@ -98,24 +64,6 @@ function auth(state = defaultState, action) {
                 isLoading: false
             }
 
-        case types.REQUEST_SET_PASSWORD:
-            return {
-                ...state,
-                isLoading: true,
-            }
-
-        case types.SET_PASSWORD_SUCCESS:
-            return {
-                ...state,
-                submitted: true,
-                isLoading: false
-            }
-
-        case types.SET_PASSWORD_FAILURE:
-            return {
-                ...state,
-                isLoading: false
-            }
 
         case types.REQUEST_SIGNUP:
             return {
@@ -134,7 +82,6 @@ function auth(state = defaultState, action) {
                 ...state,
                 isLoading: false,
             }
-
 
 
         default:

@@ -15,6 +15,7 @@ var passport = require('passport');
 var session = require('express-session');
 var Auth = require('./server/utils/auth')
 var User = require('./server/api/user')
+var Actor = require('./server/api/actor')
 var FileUpload = require('./server/utils/file-upload').router
 var Contact = require('./server/utils/contact')
 
@@ -82,25 +83,27 @@ var isNotAuthenticated = function (req, res, next) {
 // ROUTES TO APP===================================================================
 // =========================================================================
 app.get('/', serveIndex);
-
-
+app.get('/profile/edit', serveIndex);
+app.get("/profile/edit/images", serveIndex);
+app.get('/index', serveIndex);
 
 // =========================================================================
 // ROUTES TO API===================================================================
 // =========================================================================
 app.use('/auth', Auth);
 app.use('/api/user', User);
-
-
+app.use('/file', FileUpload);
+app.use('/api/contact', Contact)
+app.use('/api/actor', Actor)
 
 // =========================================================================
 // AUTH ROUTES===================================================================
 // =========================================================================
-app.get('/signup',isNotAuthenticated, serveIndex);
-app.get('/login',isNotAuthenticated, serveIndex);
-app.get('/password',isNotAuthenticated, serveIndex);
-app.get('/password/reset/:userId/:code',isNotAuthenticated, serveIndex);
-app.get('/password/set/:userId/:code',isNotAuthenticated, serveIndex);
+app.get('/signup', serveIndex);
+app.get('/login', serveIndex);
+app.get('/password', serveIndex);
+app.get('/password/reset/:userId/:code', serveIndex);
+
 
 
 

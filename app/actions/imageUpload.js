@@ -11,26 +11,27 @@ import mixpanel from 'mixpanel-browser'
 import {toggleMessage} from './message'
 
 
-export function setPreviewImage(image = null) {
+export function setPreviewImage(image = null, name) {
     return {
         type: types.SET_PREVIEW_IMAGE,
-        image: image
+        image,
+        name
     }
 }
 
 
-export function uploadImage(files, type) {
+export function uploadImage(files, name) {
     return function (dispatch) {
 
-        dispatch(requestUploadImage(files[0].preview))
+        dispatch(requestUploadImage(files[0].preview, name))
 
         var data = new FormData();
         data.append('file', files[0]);
-        data.append('type', type);
+        data.append('type', name);
 
         axios.post('/file', data).then(function (response) {
 
-            dispatch(uploadImageSuccess(response.data.url))
+            dispatch(uploadImageSuccess(response.data.url, name))
 
         }).catch(function (error) {
 
@@ -44,20 +45,22 @@ export function uploadImage(files, type) {
 
 
 
-function requestUploadImage(image) {
+function requestUploadImage(image, name) {
     return {
         type: types.REQUEST_UPLOAD_IMAGE,
-        image: image
+        image,
+        name
     }
 }
 
 
 
 
-function uploadImageSuccess(url) {
+function uploadImageSuccess(image, name) {
     return {
         type: types.UPLOAD_IMAGE_SUCCESS,
-        url: url
+        image,
+        name
     }
 }
 

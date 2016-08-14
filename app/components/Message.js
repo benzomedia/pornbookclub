@@ -6,26 +6,38 @@
  * Time: 22:28
  */
 import React from 'react'
-import Snackbar from 'material-ui/Snackbar'
+import {Message, Close, Space} from 'rebass'
 
 
-class Message extends React.Component {
+class AppMessage extends React.Component {
 
-    render(){
+    render() {
         const {messageOpen, message} = this.props.message
         const {toggleMessage} = this.props
-
+        const style = {
+            position:"fixed",
+            zIndex:9999999,
+            top: 73,
+            right: 10
+        }
         return (
-            <Snackbar
-                open={messageOpen}
-                message={message || ""}
-                action={"OK"}
-                autoHideDuration={4000}
-                onActionTouchTap={toggleMessage.bind(null, "")}
-                onRequestClose={toggleMessage}
-            />
+            <div>
+                {messageOpen ? <Message
+                    style={style}
+                    inverted
+                    rounded
+                    theme="info"
+                >
+                    {message}
+                    <Space
+                        auto
+                        x={1}
+                    />
+                    <Close onClick={toggleMessage} />
+                </Message> : null}
+            </div>
         )
     }
 }
 
-export default Message
+export default AppMessage

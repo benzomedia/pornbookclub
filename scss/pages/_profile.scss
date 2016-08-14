@@ -1,0 +1,24 @@
+
+.profile-avatar {
+  .dropzone {
+    height: 120px;
+    width: 120px;
+    margin: auto;
+    background-size: 50px;
+    border: 3px dashed $main-blue;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+
+.profile-images {
+  .dropzone {
+    height: 400px;
+    width: 320px;
+    margin: auto;
+    background-size: 50px;
+    border: 3px dashed #334466;
+    cursor: pointer;
+  }
+}

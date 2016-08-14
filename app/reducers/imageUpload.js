@@ -8,7 +8,8 @@
 import * as types from '../constants/actionTypes'
 
 const defaultState = {
-    previewImage: null,
+    avatar: null,
+    cover: null,
     isUploading: false
 }
 
@@ -20,20 +21,20 @@ function imageUpload(state = defaultState, action) {
         case(types.SET_PREVIEW_IMAGE):
             return {
                 ...state,
-                previewImage: action.image
+                [action.name]: action.image
             }
 
         case(types.REQUEST_UPLOAD_IMAGE):
             return {
                 ...state,
-                previewImage: action.image,
+                [action.name]: action.image,
                 isUploading: true
             }
 
         case(types.UPLOAD_IMAGE_SUCCESS):
             return {
                 ...state,
-                previewImage: action.url,
+                [action.name]: action.image,
                 isUploading: false
             }
 

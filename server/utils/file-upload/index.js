@@ -78,7 +78,8 @@ const FileUpload = {
         }, {
             width: width,
             height: height,
-            crop: crop
+            crop: "fill",
+            gravity: "face"
         });
     }
 }

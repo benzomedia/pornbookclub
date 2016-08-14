@@ -13,8 +13,8 @@ var date = new Date().getFullYear();
 const Footer = () =>
     (
         <div className="footer">
-            <h4 className="text-center">Webscope</h4>
-            <p className="text-center">&copy; {date} All rights reserved. Webscope</p>
+            <h4 className="text-center">Porn Book Club</h4>
+            <p className="text-center">&copy; {date} All rights reserved. Porn Book Club</p>
         </div>
     );
 

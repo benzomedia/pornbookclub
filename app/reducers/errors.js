@@ -14,14 +14,14 @@ const defaultState = {}
 function errors(state = defaultState, action) {
 
     switch(action.type) {
-        case(types.SET_ERROR):
+        case types.SET_ERROR:
 
             return {
                 ...state,
                 [action.key]: action.value
             }
 
-        case(types.CLEAR_ERRORS):
+        case types.CLEAR_ERRORS:
             return defaultState
 
 

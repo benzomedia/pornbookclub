@@ -25,7 +25,7 @@ import spacing from 'material-ui/styles/spacing';
  */
 export default {
     spacing: spacing,
-    fontFamily: '"Varela Round", Roboto, sans-serif',
+    fontFamily: 'Roboto, sans-serif',
     palette: {
         primary1Color: "#273444",
         primary2Color: cyan700,

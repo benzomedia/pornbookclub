@@ -31,8 +31,8 @@ export function login(email, password) {
 
             //dispatch success and navigate to projects screen
             dispatch(loginSuccessful())
-            dispatch(getUser())
-            dispatch(push('/projects'))
+            window.location.href="/"
+
 
         }).catch(function (error) {
             dispatch(loginFailure(error))
@@ -71,57 +71,64 @@ function loginFailure(response) {
 
 }
 
-
 // =========================================================================
-// GET USER=================================================================
+// SIGNUP==================================================================
 // =========================================================================
 
-export function getUser() {
+export function signup(role, username, email, password, verify_password) {
+
     return function (dispatch) {
-        dispatch(requestUser())
 
-        axios.get('/api/user').then(function (response) {
+        if (password != verify_password) {
+            return dispatch(toggleMessage("Passwords don't match"));
+        }
 
-            dispatch(receiveUser(response.data.user || {}))
+        dispatch(requestSignup())
+        axios.post('/auth/signup', {
+            username, email, password, role
+        }).then(function (response) {
+            if (response.data.success) {
+                dispatch(signupSuccess())
 
-            if (response.data.user) {
+                if(role == "actor"){
+                    window.location.href = '/profile/edit'
+                } else {
+                    window.location.href = '/'
+                }
 
-                dispatch(getProjectsSuccess(response.data.user.projects))
-                dispatch(setNotifications(response.data.user.notifications))
+            } else {
+                dispatch(toggleMessage(response.data.message));
+                dispatch(signupFailure(response.data.message))
             }
-
-
-        }).catch(function (error) {
-            dispatch(receiveUserFailure(error))
         })
+            .catch(function (error) {
+                dispatch(toggleMessage(error));
+                dispatch(signupFailure(error))
+            });
+
 
     }
-
 }
 
-
-function requestUser() {
-
+function requestSignup() {
     return {
-        type: types.REQUEST_USER
+        type: types.REQUEST_SIGNUP
     }
 }
 
-
-function receiveUser(user) {
+function signupSuccess() {
     return {
-        type: types.RECEIVE_USER,
-        user: user
+        type: types.SIGNUP_SUCCESS
     }
 }
 
-
-function receiveUserFailure(error) {
-    console.log("failure receiving user. error:", error);
+function signupFailure() {
     return {
-        type: types.RECEIVE_USER_FAILURE
+        type: types.SIGNUP_FAILURE
     }
 }
+
+
 
 // =========================================================================
 // RESET PASSWORD REQUEST===================================================
@@ -222,199 +229,4 @@ function requestResetPasswordFailure(error) {
         }
     }
 
-}
-
-// =========================================================================
-// SET PASSWORD===========================================================
-// =========================================================================
-
-export function setPassword(code, userId, password, verify_password) {
-    return function (dispatch) {
-        //Start action
-
-
-        if (password !== verify_password) {
-            return toggleMessage("Passwords don't match");
-        }
-
-        dispatch(requestSetPassword())
-        axios.post('/auth/password/set', {
-            code,
-            userId,
-            password
-        }).then(function (result) {
-            if (result.data.success) {
-                dispatch(requestSetPasswordSuccess(result))
-            } else {
-                dispatch(requestSetPasswordFailure(result.data.message))
-            }
-        }).catch(function (error) {
-            dispatch(requestSetPasswordFailure(error))
-        })
-
-    }
-}
-
-
-function requestSetPassword() {
-    return {
-        type: types.REQUEST_SET_PASSWORD
-    }
-}
-
-
-function requestSetPasswordSuccess() {
-    return {
-        type: types.SET_PASSWORD_SUCCESS,
-    }
-}
-
-
-function requestSetPasswordFailure(error) {
-    return function (dispatch) {
-
-        dispatch(toggleMessage(error))
-        return {
-            type: types.SET_PASSWORD_FAILURE
-        }
-    }
-
-}
-
-
-// =========================================================================
-// ONBOARDING===============================================================
-// =========================================================================
-
-export function toggleOnboarding() {
-    return function (dispatch) {
-        dispatch(requestToggleOnboarding())
-        axios.get('/api/onboarding').then(function () {
-            dispatch(toggleOnBoardingSuccess())
-        }).catch(function (error) {
-            dispatch(toggleOnBoardingFailure())
-            console.log("toggle onboarding failure", error);
-        })
-
-
-    }
-}
-
-
-function requestToggleOnboarding() {
-    return {
-        type: types.REQUEST_TOGGLE_ONBOARDING
-    }
-}
-
-function toggleOnBoardingSuccess() {
-    return {
-        type: types.TOGGLE_ONBOARDING_SUCCESS
-    }
-}
-
-function toggleOnBoardingFailure() {
-    return {
-        type: types.TOGGLE_ONBOARDING_FAILURE
-    }
-}
-
-
-// =========================================================================
-// PROFILE==================================================================
-// =========================================================================
-
-export function toggleUserEditMode() {
-    return {
-        type: types.TOGGLE_USER_EDIT_MODE
-    }
-}
-
-
-export function updateUserProfile(user) {
-    return function (dispatch) {
-        dispatch(requsetUpdateUserProfile(user))
-
-        axios.post('/api/user/' + user.id, {user}).then(function () {
-
-            dispatch(updateUserProfileSuccess())
-
-        }).catch(function (error) {
-            console.log("User Update Failure ", error);
-            dispatch(updateUserProfileFailure())
-        })
-
-    }
-}
-
-function requsetUpdateUserProfile(user) {
-    return {
-        type: types.REQUEST_UPDATE_USER_PROFILE,
-        user: user
-    }
-}
-
-
-function updateUserProfileSuccess() {
-    return {
-        type: types.UPDATE_USER_PROFILE_SUCCESS,
-    }
-}
-
-
-function updateUserProfileFailure() {
-    return {
-        type: types.UPDATE_USER_PROFILE_FAILURE,
-    }
-}
-
-
-// =========================================================================
-// SIGNUP==================================================================
-// =========================================================================
-
-export function signup(email, password, verify_password) {
-    return function (dispatch) {
-
-        if (password != verify_password) {
-            return dispatch(toggleMessage("Passwords don't match"));
-        }
-
-        dispatch(requestSignup())
-        axios.post('/auth/signup', {
-            email, password, role: "developer"
-        }).then(function (response) {
-            if (response.data.success) {
-                dispatch(signupSuccess())
-                window.location.href = "/projects"
-            } else {
-                dispatch(toggleMessage(response.data.message));
-                dispatch(signupFailure(response.data.message))
-            }
-        })
-            .catch(function (error) {
-                dispatch(toggleMessage(error));
-                dispatch(signupFailure(error))
-            });
-
-
-    }
-}
-
-function requestSignup() {
-    return {
-        type: types.REQUEST_SIGNUP
-    }
-}
-
-function signupSuccess() {
-    return {
-        type: types.SIGNUP_SUCCESS
-    }
-}
-
-function signupFailure() {
-    return {
-        type: types.SIGNUP_FA
-    }
 }

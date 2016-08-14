@@ -23,13 +23,13 @@ require('./passport');
 
 function handleSignup(req, res) {
 
-    User.filter({email: req.body.email}).run().then(function (users) {
+    User.filter(function (user) {
+        return (user('username').eq(req.body.username).or(user('email').eq(req.body.email)));
+    }).run().then(function (users) {
         if (users.length == 0) {
 
-            var firstName = req.body.email.match(/^([^@]*)@/)[1];
-
             User.save({
-                firstName: firstName,
+                username: req.body.username,
                 email: req.body.email.toLowerCase(),
                 password: CryptoJS.MD5(req.body.password).toString(),
                 role: req.body.role,
@@ -46,8 +46,8 @@ function handleSignup(req, res) {
             }).error(handleError(res));
 
         } else {
-            //Email already is in the DB
-            res.status(200).send(JSON.stringify({success: false, message: 'Email already exists'}))
+            //Email or Username already is in the DB
+            res.status(200).send(JSON.stringify({success: false, message: 'Email or Username already exist, try a different one'}))
         }
 
 
@@ -141,35 +141,6 @@ function resetPassword(req, res) {
 };
 
 
-// =========================================================================
-// SET PASSWORD=============================================================
-// =========================================================================
-function setPassword(req, res) {
-
-    User.get(req.body.userId).run().then(function (user) {
-
-        if (user.code !== req.body.code) {
-            //code doesn't match
-            return res.status(200).send(JSON.stringify({
-                success: false,
-                message: 'Code mismatch, please contact project admin.'
-            }))
-        }
-
-
-        User.get(user.id).update({
-            password: CryptoJS.MD5(req.body.password).toString(),
-            color: colors[Math.floor(Math.random() * colors.length)],
-            code: '',
-            codeUpdatedAt: null
-        }).then(function (user) {
-            return res.status(200).send(JSON.stringify({success: true, message: 'Password was successfully set'}))
-        }).error(handleError(res))
-
-    }).error(handleError(res));
-
-};
-
 
 /*
 
@@ -208,11 +179,6 @@ router.post('/login', function (req, res, next) {
 //Handle Signup
 router.post('/signup', handleSignup);
 
-//Handle requests for session flash messages
-router.get('/flash', function (req, res) {
-    res.status(200).send(JSON.stringify(req.flash()))
-})
-
 
 //Handle Logout
 router.get('/logout', function (req, res) {
@@ -227,8 +193,6 @@ router.post('/password', sendResetPasswordEmail);
 router.post('/password/reset', resetPassword);
 
 
-//Handle Request to set password for new users
-router.post('/password/set', setPassword);
 
 function handleError(res) {
     return function (error) {

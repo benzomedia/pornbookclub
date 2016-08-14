@@ -14,7 +14,7 @@ class FileUpload extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            style: {background:`url("/images/dropImage.png") center center no-repeat`}
+            style: {background:`url("/images/dropImage.png") center center / 50% no-repeat`}
         }
 
     }
@@ -22,7 +22,7 @@ class FileUpload extends React.Component {
     componentWillReceiveProps(nextProps){
         if(nextProps.preview == null){
             this.setState({
-                style: {background:`url("/images/dropImage.png") center center no-repeat`}
+                style: {background:`url("/images/dropImage.png") center center / 50% no-repeat`}
             })
         } else {
             this.setState({
@@ -53,5 +53,11 @@ class FileUpload extends React.Component {
         );
     }
 };
+
+FileUpload.PropTypes = {
+    imageLoading: React.PropTypes.bool.isRequired,
+    onDrop: React.PropTypes.func.isRequired,
+    preview: React.PropTypes.string.isRequired
+}
 
 export default FileUpload;

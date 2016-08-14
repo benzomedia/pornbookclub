@@ -32,14 +32,17 @@ injectTapEventPlugin();
 //Initialize mixpanel
 //mixpanel.init("9e764a7ae2f004d104120eee14a4bd49");
 
-const AppRouter = () => {
-    return (
-        <MuiThemeProvider muiTheme={getMuiTheme(myTheme)}>
-            <Provider store={store}>
-                <Router history={history}>{routes}</Router>
-            </Provider>
-        </MuiThemeProvider>
-    )
+class AppRouter extends React.Component{
+
+    render() {
+        return (
+            <MuiThemeProvider muiTheme={getMuiTheme(myTheme)}>
+                <Provider store={store}>
+                    <Router history={history}>{routes}</Router>
+                </Provider>
+            </MuiThemeProvider>
+        )
+    }
 }
 
 

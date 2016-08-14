@@ -14,12 +14,11 @@ import Main from './Main'
 function mapStateToProps(state) {
     return {
         auth: state.auth,
-        drawer: state.drawer,
-        notifications: state.notifications,
         message: state.message,
         imageUpload: state.imageUpload,
-        projectsList: state.projectsList,
-        errors: state.errors
+        errors: state.errors,
+        user: state.user,
+        actors: state.actors
     }
 }
 

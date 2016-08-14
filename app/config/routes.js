@@ -12,8 +12,10 @@ import Signup from '../components/Auth/Signup'
 import Login from '../components/Auth/Login'
 import Password from '../components/Auth/Password'
 import PasswordReset from '../components/Auth/PasswordReset'
-import PasswordSet from '../components/Auth/PasswordSet'
-
+import ActorList from '../components/ActorList/ActorList'
+import Home from '../components/Home'
+import EditProfile from '../components/Profile/EditProfile'
+import EditImages from '../components/Profile/EditImages'
 
 
 module.exports = (
@@ -23,15 +25,13 @@ module.exports = (
         <Route path="/login" component={Login}/>
         <Route path="/signup" router={Router} component={Signup}/>
         <Route path="/password/reset/:userId/:code" component={PasswordReset}/>
-        <Route path="/password/set/:userId/:code" component={PasswordSet}/>
         <Route path="/password" component={Password}/>
+        <Route path="/profile/edit" component={EditProfile} />
+        <Route path="/profile/edit/images" component={EditImages} />
+       
 
-        <IndexRoute component={Login}/>
+        <IndexRoute component={ActorList}/>
 
     </Route>
 );
-
-
-
-
 
