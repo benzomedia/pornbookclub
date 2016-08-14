@@ -14,7 +14,7 @@ class FileUpload extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            style: {background:`url("/images/dropImage.png") center center / 50% no-repeat`}
+            style: {background:`url("/images/dropImage.png") center center no-repeat`,backgroundSize:"50%"}
         }
 
     }
@@ -22,7 +22,7 @@ class FileUpload extends React.Component {
     componentWillReceiveProps(nextProps){
         if(nextProps.preview == null){
             this.setState({
-                style: {background:`url("/images/dropImage.png") center center / 50% no-repeat`}
+                style: {background:`url("/images/dropImage.png") center center no-repeat`,backgroundSize:"50%"}
             })
         } else {
             this.setState({
