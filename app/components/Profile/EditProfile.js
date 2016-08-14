@@ -8,7 +8,7 @@
 import React from 'react'
 import {Input, Textarea, Select, Container, Button} from 'rebass'
 import MDSpinner from "react-md-spinner";
-import ImageUpload from '../FileUpload'
+import ImageUpload from '../ImageUpload'
 
 class EditProfile extends React.Component {
     constructor() {

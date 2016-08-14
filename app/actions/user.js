@@ -12,7 +12,7 @@ import mixpanel from 'mixpanel-browser'
 import {push} from 'react-router-redux'
 import {toggleMessage} from './message'
 import store from '../store/configureStore'
-import {setPreviewImage} from './ImageUpload'
+import {setPreviewImage} from './imageUpload'
 
 // =========================================================================
 // GET USER=================================================================
