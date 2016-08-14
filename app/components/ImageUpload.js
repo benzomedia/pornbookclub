@@ -54,10 +54,5 @@ class FileUpload extends React.Component {
     }
 };
 
-FileUpload.PropTypes = {
-    imageLoading: React.PropTypes.bool.isRequired,
-    onDrop: React.PropTypes.func.isRequired,
-    preview: React.PropTypes.string.isRequired
-}
 
 export default FileUpload;
