@@ -31,7 +31,7 @@ class AppToolbar extends React.Component {
             <Toolbar>
                 <NavItem to='/'
                          is={Link}
-                         children='Porn Book Club'/>
+                         children={<img className="logo" src="/images/logo.png" style={{maxWidth:140}} />}/>
                 <Space
                     auto
                     x={1}

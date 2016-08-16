@@ -37,7 +37,7 @@ class Signin extends React.Component {
         return (
             <div>
                 <img src="/images/logo_icon.png" className="center-block" style={{marginTop: 50, marginBottom: 50}}/>
-                <h1 className="text-center" style={{marginBottom: 30}}>Sign in to Porn Book Club</h1>
+                <h1 className="text-center" style={{marginBottom: 30}}>Sign in</h1>
                 <div className="signup-div col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
 
                     <form onSubmit={this.handleSubmit}>

@@ -31,7 +31,7 @@ export function login(email, password) {
 
             //dispatch success and navigate to projects screen
             dispatch(loginSuccessful())
-            window.location.href="/"
+            window.location.href="/index"
 
 
         }).catch(function (error) {
@@ -93,7 +93,7 @@ export function signup(role, username, email, password, verify_password) {
                 if(role == "actor"){
                     window.location.href = '/profile/edit'
                 } else {
-                    window.location.href = '/'
+                    window.location.href = '/index'
                 }
 
             } else {

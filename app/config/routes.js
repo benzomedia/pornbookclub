@@ -22,15 +22,16 @@ module.exports = (
     <Route path="/" component={Main}>
 
         /* Auth Routes*/
+        <Route path="/index" component={ActorList}/>
         <Route path="/login" component={Login}/>
         <Route path="/signup" router={Router} component={Signup}/>
         <Route path="/password/reset/:userId/:code" component={PasswordReset}/>
         <Route path="/password" component={Password}/>
-        <Route path="/profile/edit" component={EditProfile} />
-        <Route path="/profile/edit/images" component={EditImages} />
-       
+        <Route path="/profile/edit" component={EditProfile}/>
+        <Route path="/profile/edit/images" component={EditImages}/>
 
-        <IndexRoute component={ActorList}/>
+
+        <IndexRoute component={Home}/>
 
     </Route>
 );
