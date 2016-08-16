@@ -170,7 +170,7 @@ export function updateUserImages(images) {
         axios.post('/api/user/images/', {images}).then(function (user) {
 
             dispatch(updateUserImagesSuccess(user))
-            dispatch(push('/index'))
+            window.location.href = '/index'
 
         }).catch(function (error) {
             console.log("Images Update Failure ", error);

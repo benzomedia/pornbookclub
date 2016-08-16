@@ -29,7 +29,7 @@ class AppToolbar extends React.Component {
         const {user} = this.props.user
         return (
             <Toolbar>
-                <NavItem to='/'
+                <NavItem to={user.id ? '/index' : '/'}
                          is={Link}
                          children={<img className="logo" src="/images/logo.png" style={{maxWidth:140}} />}/>
                 <Space

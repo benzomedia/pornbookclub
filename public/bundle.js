@@ -36528,7 +36528,7 @@
 	        _axios2.default.post('/api/user/images/', { images: images }).then(function (user) {
 
 	            dispatch(updateUserImagesSuccess(user));
-	            dispatch((0, _reactRouterRedux.push)('/'));
+	            window.location.href = '/index';
 	        }).catch(function (error) {
 	            console.log("Images Update Failure ", error);
 	            dispatch(updateUserImagesFailure());
